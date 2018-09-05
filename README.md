@@ -1,163 +1,119 @@
-<p align="center">
-  <a href="http://www.ulbra.br">
-    <img src="http://i.imgur.com/zOkWT06.png" title="ULBRA" />
-  </a>  
-</p>
+Sobre o projeto
+===============
 
-___
+Este projeto é dividido em duas partes, a primeira consiste na aplicação NodeJS que irá servir os arquivos estáticos e também atuará como uma API, realizando a autenticação do usuário.
 
-# Seleção para Analista de Sistemas Web 2017
+A segunda parte é composta pela aplicação Angular. Nela o usuário poderá se cadastrar, fazer login e obter acesso a lista de cursos.
 
-## Processo de recrutamento
-
-Olá, pronto para participar do nosso processo de recrutamento para vaga de Analista de Sistemas/Desenvolvedor (CLT)?
-
-### Sobre a Vaga
-
-- Empresa: ULBRA
-- Cargo: Analista de Sistemas/Desenvolvedor (CLT);
-- Salário compatível com a função
-- Horário: 08:00h às 12:00h – 13:00h às 17:48h (de segunda a sexta)
-- Refeitório no local
-- Vale transporte ou estacionamento
-- 80% desconto na Faculdade
-- Local: ULBRA – Campus Canoas (www.ulbra.br)
-
-### Requisitos para a vaga
-
-Domínio em:
-
-- Angular v. 1.2
-- Node
-- Git
-- PL/SQL 
-- Banco de Dados Oracle
-
-## A Atividade
-
-Um usuário quer se inscrever em uma plataforma de ensino à distância e ter acesso aos cursos disponíveis.
-
-O que esperamos que seja desenvolvido:
-
-1)	Uma página para login na plataforma, com possibilidade de login através do Google e criação de novo usuário
-2)	Uma página para que o usuário possa se cadastrar na plataforma
-3)	Uma página para apresentar os cursos disponíveis para o usuário, após o usuário entrar na plataforma
-
-### Início
-
-Faça o fork do desafio
-
-### Layout
-
-<p align="center">
-  <img src="http://i.imgur.com/MROnFoh.jpg" alt="Tela de login" width="400px"/>      
-  <br>
-  Tela de login
-  <br>
-  <br>
-  <br>  
-  <img src="http://i.imgur.com/BQLjiiK.jpg" alt="Tela de cadastro de usuário" width="400px"/>  
-  <br>
-  Tela de cadastro de usuário
-  <br>
-  <br>
-  <br>  
-  <img src="http://i.imgur.com/eB6XDlL.jpg" alt="Tela de cadastro de usuário" width="400px"/>  
-  <br>
-  Tela de apresentação de cursos
-  <br>
-  <br>
-  <br>
-</p>
+O sistema foi desenvolvido, em sua maior parte, com JavaScript, utilizando ExpressJS, Angular 1.2, KnexJS (ORM), PassportJS (Autenticação). O template foi criado pelo time de desenvolvimento da Ulbra e sofreu algumas modificações para se adaptar ao Angular.
 
 
-### Dados
 
-Deverá ser realizada a construção de uma API REST, em Node, para consumir os dados no Front-end (Angular)
+ESTRUTURA DE DIRETÓRIOS
+-----------------------
 
-Os dados do usuário serão consumidos de um banco de dados Oracle
-
-Tabela USUARIO:
-
-| Propriedade   | Tipo          | Descrição                                   |
-| ------------- |:-------------:| --------------------------------------------|
-| `id`          | Varchar2(255) | Id do usuário                               |
-| `email`       | Varchar2(255) | Email/login do usuário                      |
-| `nome`        | Varchar2(80)  | Nome do usuário                             |
-| `sexo`        | Varchar2(1)   | Sexo do usuário – M ou F                    |
-| `nascimento`  | Date          | Data de nascimento do usuário (dd/mm/yyyy)  |
-| `senha`       | Varchar2(32)  | Senha do usuário criptografada              |
-
-
-Os dados dos cursos disponíveis estão no JSON:
-
-base/curso.json
-
-| Propriedade   | Tipo          | Descrição                                   |
-| ------------- |:-------------:|---------------------------------------------|
-| `id`          | Varchar2(255) | Id do curso                                 |
-| `nome`        | Varchar2(255) | Nome do curso                               |
-
-### Especificações sobre o desenvolvimento
-
-#### 1)	Tela de login
-
-- Caso o usuário efetue login através dos campos da própria plataforma, 
-deve ser validado no banco de dados se o usuário e senha informados estão corretos. 
-A senha deve ser criptografada em MD5 gerando um HASH de 32 dígitos antes de trafegar através da API REST de login
-- Se o usuário optar for fazer login com o Gmail, deverá ser utilizada a API de login do Google. 
-- Se o login obtiver sucesso, liberar o acesso do usuário à tela de apresentação de cursos 
-caso contrário apresentar mensagem para o usuário na tela de login
-
-#### 2)	Tela de cadastro de usuário
-
-##### Front-end
-
-  Realizar as seguintes validações:
-
-- Somente maiores de 18 anos podem se cadastrar 
-- O e-mail do usuário é único no sistema
-- A senha deve possuir no mínimo 8 caracteres e possuir uma letra maiúscula, um número e um caractere especial
-
-##### Back-end
-
-- Realizar as mesmas validações do front-end
-- O Id do usuário deverá ser gerado através de uma função no banco de dados. 
-Seu retorno será um varchar2 contendo a criptografia em MD5 de um número sequencial + data de geração+ Token (sBBHcK) 
-gerando um HASH de 32 dígitos.  
-- A senha informada deve ser criptografada em MD5 gerando um HASH de 32 dígitos
+        .
+    ├── app                     # Aplicação angular
+    │   ├── modules
+    │   │   ├── cadastro        # Módulo cadastro
+    │   │   ├── cursos          # Módulo cursos
+    │   │   ├── login           # Módulo login
+    │   │   └── sair            # Módulo de logout
+    │   ├── partials            # Views parciais
+    │   ├── services            # Serviços
+    │   ├── styles              # Folhas de estilo CSS
+    │   ├── app.js              # Inicialização da Aplicação Angular
+    │   ├── config.js           # Configurações do router
+    │   └── start.js            # Verificação cold reload
+    ├── base
+    │   └── curso.json          # Arquivo JSON contendo os cursos
+    ├── ddl
+    │   ├── funcao.sql          # Função PLSQL para a geração do ID
+    │   ├── sequencia.sql       # Gerador de números sequenciais
+    │   └── tabela.sql          # Script para a criação da Tabela de Usuários
+    ├── dist
+    │   └── index.html          # Arquivo index que carregará o bundle.js
+    ├── rotas
+    │   └── rotas.js
+    ├── .babelrc                # Configuração do babelJS
+    ├── .gitignore              # Arquivos e pastas ignorados pelo git
+    ├── index.js                # Servidor Web NodeJS
+    ├── package.json            # Módulos NPM utilizados
+    ├── PROJECT.md              # Este arquivo
+    ├── README.md               # Instruções Originais da Ulbra
+    └── webpack.config.js       # Configurações do WebPack
 
 
-#### 3)	Tela de apresentação de cursos
 
-- Somente será possível acessar essa tela caso o usuário tenha efetuado o login com sucesso
-- Os dados dos cursos devem ser lidos a partir do arquivo curso.json disponibilizado
+REQUERIMENTO
+------------
 
-## Avaliação
+Lista de itens requeridos para a execução deste projeto:
 
-O que vamos avaliar:
+ * NodeJS versão 6.11.0 [link](https://nodejs.org/)
+ * Oracle 11g XE (ou outra versão compatível) [link](http://www.oracle.com/technetwork/database/database-technologies/express-edition/downloads/index.html)
+ * Oracle Instant Client [link](http://www.oracle.com/technetwork/topics/linuxx86-64soft-092277.html)
 
-- Eficiência 
--	Eficácia
--	Desempenho
--	Organização
--	Boas práticas
--	Testes unitários e utilização de features do Ecmascript 6 serão um diferencial
+Também se faz necessário a instalação global dos seguintes módulos via NPM:
 
-## Entrega
+ * Node-gyp
+ * Webpack
 
-O processo de entraga da atividade deve ser:
+``` bash
+$ npm install -g node-gyp
+$ npm install -g webpack
+```
 
-1)	Crie um PROJECT.md com a explicação de como devemos executar o projeto, 
-com o máximo de detalhes possível do que foi feito e a documentação da API REST
-2)	Os scripts de criação da tabela USUARIO e do procedimento de criação de ID do usuário 
-no banco de dados devem estar contidos no projeto
-3)	Após concluir faça um pull request
-5)	Envie um e-mail para vagasulbrati@ulbra.br com o assunto “Atividade de seleção para Analista de Sistemas” 
-com seu currículo, pretensão salarial e o link do seu pull request
 
-__
 
-Qualquer dúvida entre em contato com nossa equipe pelo e-mail vagasulbrati@ulbra.br 
-com o assunto “Dúvidas atividade de seleção para Analista de Sistemas”.
+PREPARAÇÃO
+----------
 
+Por motivos de segurança, a senha de acesso ao Oracle fica numa variável de ambiente, sendo assim é necessário informá-la:
+
+``` bash
+$ export PWD_ORACLE=senha_do_oracle_aqui
+```
+
+Outros dados de acesso ao banco, como usuário e endereço podem ser inseridos dentro do arquivo `index.js`.
+
+
+
+INSTALAÇÃO
+----------
+
+
+### Clonar repositório
+
+``` base
+git clone https://github.com/AndersonBargas/selecao-analista-sistemas-web-2017.git
+```
+
+
+### ... ou Instalação a partir do Arquivo
+
+Extraia o arquivo que pode ser baixado clicando [aqui](https://github.com/AndersonBargas/selecao-analista-sistemas-web-2017/archive/master.zip) para
+um diretório local.
+
+
+### Continuando com a instalação
+
+Agora basta executarmos:
+
+``` bash
+$ npm install
+$ webpack
+$ npm start
+```
+
+Se tudo deu certo, você poderá acessar o projeto a partir do seguinte endereço URL:
+
+~~~
+http://localhost:8080
+~~~
+
+É importante que se use o endereço `localhost` e a porta `8080`, pois foi este o endereço configurado no Google Developer. Qualquer endereço diferente deste causará uma falha no login via conta Google.
+
+
+**OBSERVAÇÕES:**
+- A instalação do driver Oracle pode ser um tanto complicada. Após um dia inteiro tentando compilar o driver no Windows, instalei o Fedora 25 e a compilação funcionou de primeira. Portanto recomendo que execute este projeto em ambiente Linux, 64 bits (só existe versão 64 bits do Oracle 11g XE).
